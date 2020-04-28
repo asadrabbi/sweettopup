@@ -78,6 +78,41 @@
 $('#btrequest-submit').click(function(e){
     e.preventDefault();
     var form = $(this).parents('form');
+    form.validate({
+        rules: {
+            refill_no : {
+                required: true,
+                number:true,
+                minlength: 11,
+            },
+            amount : {
+                required: true,
+                number:true,
+            },
+            account_type: {
+                required: true,
+            },
+            transfer_type: {
+                required: true,
+            }
+
+        },
+        messages: {
+            refill_no: {
+                required: "Please enter your number",
+                minlength: "Number can not be less than 11",
+            },
+            amount: {
+                required: "Please enter your amount",
+            },
+            account_type: {
+                required: "Please enter your acount type",
+            },
+            transfer_type: {
+                required: "Please enter your transfer type",
+            }
+        }
+    });
     Swal.fire({
     title: 'Are you sure to request?',
     //text: "You won't be able to revert this!",

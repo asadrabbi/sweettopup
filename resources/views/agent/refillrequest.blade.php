@@ -16,7 +16,7 @@
             <div class="col-sm-10">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                    <input name="refill_no" class="form-control" type="text" required>
+                    <input name="refill_no" class="form-control" type="text">
                 </div>
             </div>
         </div>
@@ -77,6 +77,41 @@
 $('#refilltopup-submit').click(function(e){
     e.preventDefault();
     var form = $(this).parents('form');
+    form.validate({
+        rules: {
+            refill_no : {
+                required: true,
+                number:true,
+                minlength: 11,
+            },
+            amount : {
+                required: true,
+                number:true,
+            },
+            account_type: {
+                required: true,
+            },
+            operator_type: {
+                required: true,
+            }
+
+        },
+        messages: {
+            refill_no: {
+                required: "Please enter your number",
+                minlength: "Number can not be less than 11",
+            },
+            amount: {
+                required: "Please enter your amount",
+            },
+            account_type: {
+                required: "Please enter your acount type",
+            },
+            operator_type: {
+                required: "Please enter your operator type",
+            }
+        }
+    });
     Swal.fire({
     title: 'Are you sure to request?',
     //text: "You won't be able to revert this!",
@@ -86,11 +121,10 @@ $('#refilltopup-submit').click(function(e){
     cancelButtonColor: '#d33',
     confirmButtonText: 'Confirm'
     }).then((result) => {
-    if (result.value) {
-        form.submit();
-    }
+        if (result.value) {
+            form.submit();
+        }
     })
-
 });
 </script>
 @endsection
